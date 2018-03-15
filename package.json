@@ -1,0 +1,43 @@
+{
+  "name": "singleThread",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "postinstall": "./node_modules/.bin/rn-nodeify --install stream,process,util --hack"
+  },
+  "dependencies": {
+    "lodash": "^4.17.5",
+    "process": "^0.11.10",
+    "react": "^16.3.0-alpha.1",
+    "react-native": "0.54.2",
+    "react-native-tcp": "^3.3.0",
+    "readable-stream": "^1.0.33",
+    "stream-browserify": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-jest": "22.4.1",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.4.2",
+    "react-test-renderer": "^16.3.0-alpha.1",
+    "rn-nodeify": "^10.0.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "react-native": {
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
+  },
+  "browser": {
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
+  }
+}
