@@ -24,12 +24,11 @@ export default class App extends Component {
   }
 
   onMatFound(result) {
-    console.log('onMatFound!');
     this.setState({
       found: result.found,
       inRange: result.inRange,
       contamination: result.contamination,
-      tagsInRnage: result.tagsInRange
+      tagsInRange: result.tagsInRange
     })
   }
 
@@ -60,7 +59,7 @@ export default class App extends Component {
         <Text>Contaminated: {this.state.contamination.contaminated} </Text>
         <View>
           <Text>Mats In Range </Text>
-          <Text>{this.state.matsInRange} </Text>
+          <Text>{this.state.tagsInRange} </Text>
         </View>
         <View style={styles.buttonsContainer}>
 

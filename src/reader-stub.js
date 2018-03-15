@@ -1,4 +1,5 @@
 import ScanJob from './job-scan';
+import { getLocation } from './gps';
 
 const Tags = require('./tags');
 
@@ -28,8 +29,8 @@ export default class ReaderStub {
 
         this.timer = setInterval(async () => {
             const tagNumber = this.getRandomTagNumber();
-            console.log('tagNumber:', tagNumber);
-            await this.job.processTag(tagNumber);
+            const location = await getLocation();
+            this.job.processTag(tagNumber, location);
         }, 1000);
 
         this.job.start();
@@ -39,7 +40,13 @@ export default class ReaderStub {
         this.stop();
         this.job.processBatch(data);
         setTimeout(() => {
-            this.start();
+            this.timer = setInterval(async () => {
+                const tagNumber = this.getRandomTagNumber();
+                const location = await getLocation();
+                await this.job.processTag(tagNumber, location);
+            }, 1000);
+
+            this.job.start();
         }, 500);
     }
 

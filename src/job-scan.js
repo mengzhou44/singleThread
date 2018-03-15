@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Tags from './tags';
-import { getLocation } from './gps';
+
 
 export default class ScanJob {
 
@@ -53,17 +53,11 @@ export default class ScanJob {
         }
     }
 
-    async processTag(tagNumber) {
+    processTag(tagNumber, location) {
         const matId = new Tags().findMatId(this.knownTags, tagNumber);
         if (matId === "-1") return;
 
         this.updateMatsInRange(tagNumber);
-
-        try {
-            const location = await getLocation();
-        } catch (ex) {
-            console.log('canot not get gps location!')
-        }
 
         const timeStamp = Math.floor(Date.now());
         const mat = {
@@ -75,7 +69,6 @@ export default class ScanJob {
         let found = _.find(this.mats, (mat) => mat.matId === matId);
         if (!found) {
             this.mats.push(mat);
-            console.log('call on matFound')
             this.onMatFound(
                 {
                     found: this.mats.length,
@@ -91,7 +84,6 @@ export default class ScanJob {
 
 
     processBatch(data) {
-
         _.map(this.matsInRange, mat => {
             const found = _.find(this.mats, (item) => item.matId === mat.matId);
             for (var prop in data) {
@@ -116,6 +108,7 @@ export default class ScanJob {
             }
         });
 
+        console.log('mats', this.mats);
 
         const result = {
             found: this.mats.length,
