@@ -1,7 +1,7 @@
 import ScanJob from './job-scan';
 import { getLocation } from './gps';
 
-const Tags = require('./tags');
+import Tags from '../tags';
 
 
 export default class ReaderStub {

@@ -1,5 +1,15 @@
 
+import axios from 'axios';
+import _ from 'lodash';
+import { get, save, exists } from './storage';
+
+import Settings from './settings';
+
 export default class Tags {
+
+    constructor() {
+
+    }
 
     getTags() {
 
@@ -19,5 +29,3 @@ export default class Tags {
     }
 
 }
-
-module.exports = Tags;

@@ -1,6 +1,5 @@
 import net from 'react-native-tcp';
 import React, { Component } from 'react';
-import ReaderStub from './src/reader-stub';
 
 import {
   Platform,
@@ -8,6 +7,9 @@ import {
   TouchableWithoutFeedback,
   View
 } from 'react-native';
+
+import ReaderStub from './src/business/reader/reader-stub';
+
 
 export default class App extends Component {
 
@@ -74,7 +76,6 @@ export default class App extends Component {
          </Text>
             </View>
           </TouchableWithoutFeedback>
-
 
           <TouchableWithoutFeedback
             onPress={() => this.reader.processBatch({ contaminated: false })
