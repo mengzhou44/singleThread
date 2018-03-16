@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import _ from 'lodash';
 
-export const save = async (key, obj) => {
+export const set = async (key, obj) => {
     const temp = JSON.stringify(obj);
     await AsyncStorage.setItem(key, temp);
 };

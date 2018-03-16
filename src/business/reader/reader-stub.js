@@ -2,6 +2,7 @@ import ScanJob from './job-scan';
 import { getLocation } from './gps';
 
 import Tags from '../tags';
+import Scan from '../scan';
 
 
 export default class ReaderStub {
@@ -56,20 +57,21 @@ export default class ReaderStub {
         }, 500);
     }
 
-    getData() {
-        return this.job.getData();
-    }
-
-    clearData() {
-        this.job.clearData();
-    }
-
     stop() {
         this.job.stop();
         clearInterval(this.timer);
         this.timer = null;
     }
+
+    async stopScan(scan) {
+        scan.mats = this.job.getData();
+        await new Scan().addNewScan(scan);
+        this.job.clearData();
+        this.stop();
+    }
 }
+
+
 
 
 

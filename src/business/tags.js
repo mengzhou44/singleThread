@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import _ from 'lodash';
-import { get, save, exists } from './storage';
+import { get, set, exists } from './storage';
 
 import Settings from './settings';
 
@@ -38,7 +38,7 @@ export default class Tags {
                 temp[item[0]] = item[1];
             });
 
-            await save('tags', temp);
+            await set('tags', temp);
 
             return { success: true };
         } catch (error) {

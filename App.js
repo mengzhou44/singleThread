@@ -8,7 +8,9 @@ import {
   View
 } from 'react-native';
 
+
 import ReaderStub from './src/business/reader/reader-stub';
+import File from './src/business/file';
 
 
 export default class App extends Component {
@@ -27,6 +29,7 @@ export default class App extends Component {
 
   onMatFound(result) {
     this.setState({
+      scans: [],
       found: result.found,
       inRange: result.inRange,
       contamination: result.contamination,
@@ -37,6 +40,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
+
         <TouchableWithoutFeedback
           onPress={() => {
             let connected = this.reader.start(
@@ -89,6 +93,31 @@ export default class App extends Component {
             </View>
           </TouchableWithoutFeedback>
         </View>
+
+        <TouchableWithoutFeedback
+          onPress={async () => {
+            await this.reader.stopScan({
+              clientId: 123,
+              jobId: 5,
+              clientName: 'Easy Express',
+              jobName: 'Install Mats'
+            });
+
+            const scans = await new File().fetchScans();
+            this.setState({
+              scans
+            });
+            console.log(JSON.stringify(scans, null, 4));
+          }}
+        ><View
+          style={{ borderColor: 'black', borderWidth: 1, padding: 10 }}
+        >
+            <Text>
+              Stop Scan
+               </Text>
+          </View>
+        </TouchableWithoutFeedback>
+
       </View>
     );
   }
