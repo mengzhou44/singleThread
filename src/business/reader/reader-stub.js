@@ -10,16 +10,18 @@ export default class ReaderStub {
         if (jobType === 'scan') {
             this.job = new ScanJob();
         }
-
     }
 
-    getRandomTagNumber() {
+    async getRandomTagNumber(knownTags) {
         var result;
         var count = 0;
-        const knownTags = new Tags().getTags();
-        for (var prop in knownTags)
-            if (Math.random() < 1 / ++count)
+
+        for (var prop in knownTags) {
+            if (Math.random() < 1 / ++count) {
                 result = prop;
+            }
+        }
+
         return result;
     }
 
@@ -28,8 +30,10 @@ export default class ReaderStub {
         this.job.onError = onError;
 
         this.timer = setInterval(async () => {
-            const tagNumber = this.getRandomTagNumber();
+            const knownTags = await new Tags().getTags();
+            const tagNumber = await this.getRandomTagNumber(knownTags);
             const location = await getLocation();
+            this.job.knownTags = knownTags;
             this.job.processTag(tagNumber, location);
         }, 1000);
 
@@ -41,8 +45,10 @@ export default class ReaderStub {
         this.job.processBatch(data);
         setTimeout(() => {
             this.timer = setInterval(async () => {
-                const tagNumber = this.getRandomTagNumber();
+                const knownTags = await new Tags().getTags();
+                const tagNumber = await this.getRandomTagNumber(knownTags);
                 const location = await getLocation();
+                this.job.knownTags = knownTags;
                 await this.job.processTag(tagNumber, location);
             }, 1000);
 

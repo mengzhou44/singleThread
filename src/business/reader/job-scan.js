@@ -7,10 +7,9 @@ export default class ScanJob {
     constructor() {
         this.onMatFound = null;
         this.onError = null;
-
         this.mats = [];
         this.matsInRange = [];
-        this.knownTags = new Tags().getTags();
+        this.knownTags = [];
         this.matsInRangeTimer = null;
         this.contamination = { contaminated: 0, decontaminated: 0 };
     }
@@ -107,9 +106,6 @@ export default class ScanJob {
 
             }
         });
-
-        console.log('mats', this.mats);
-
         const result = {
             found: this.mats.length,
             inRange: this.matsInRange.length,
@@ -141,7 +137,6 @@ export default class ScanJob {
         } catch (err) {
             console.log("main window was destroyed!");
         }
-
     }
 
     getData() {
